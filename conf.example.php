@@ -6,7 +6,5 @@ $conf['bot_token'] = 'DDDDDDDDD:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
 $conf['onlytrusted'] = TRUE;
 
 //Populate the array with the trusted Chat IDs
-$conf['trusted'] = array(
-		'<chat_id>',
-	);
+$conf['trusted'] = [ '<chat_id>' ];
 
