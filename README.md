@@ -58,7 +58,7 @@ Upload the files to your host (I recommend creating a unique directory name, you
 
 ### Set the Webhook
 
-To set the webhook to your telegram bot you only need to access the following url with the bot token and the url to your webhook. https://api.telegram.org/bot<bot token>/setwebhook?url=https://example.domain/path/to/bothook.php
+To set the webhook to your telegram bot you only need to access the following url with the bot token and the url to your webhook. https://api.telegram.org/bot**TOKEN**/setwebhook?url=https://example.domain/path/to/bothook.php (replace **«TOKEN»** with your bot token and the webhook url to your own).
 
 example: 
 ´´´
@@ -66,7 +66,6 @@ https://api.telegram.org/bot4334584910:AAEPmjlh84N62Lv3jGWEgOftlxxAfMhB1gs/setwe
 ´´´
 
 More help on how to create a webhook [here](https://core.telegram.org/bots/webhooks).
-
 
 
 Have fun!
