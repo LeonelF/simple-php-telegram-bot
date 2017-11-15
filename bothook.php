@@ -35,10 +35,12 @@ class BotHook
 
 	private function isTrusted()
 	{
-		if ($this->onlytrusted) { 
-			if (in_array($this->chat_id, $this->trusted)) { return true; }
-		} else {
+		if (!$this->onlytrusted) { 
 			return true;
+		}
+		
+		if (in_array($this->chat_id, $this->trusted)) { 
+			return true; 
 		}
 
 		return false;
