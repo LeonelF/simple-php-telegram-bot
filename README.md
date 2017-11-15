@@ -53,7 +53,7 @@ To get the chat ID, open the following URL in your web-browser: https://api.tele
 
 Rename the conf.example.php file to conf.php and put your bot token that you got and if you want your bot to awnser to anyone change to **FALSE** the onlytrusted parameter, otherwise add your chatid to the trusted array.
 
-Upload the files to your host (I recommend creating a unique directory name, you can use an MD5 hash of a string of your choise, for example: 5277d6cf9f917a1da0ef9e55f3ae9f8f)
+Upload the files to your host (I recommend creating a unique directory name, you can use an MD5 hash of a string of your choice, for example: 5277d6cf9f917a1da0ef9e55f3ae9f8f)
 
 
 ### Set the Webhook
