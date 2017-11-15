@@ -25,6 +25,8 @@ class BotHook
 	{
 		$this->api_url = 'https://api.telegram.org/bot' . $bottoken;
 		$this->chat_id = $chat_id;
+		$this->onlytrusted = $onlytrusted;
+		$this->trusted = $trusted;
 
 		if (strpos($message, '/') === 0) {
 			$this->command($message);
@@ -33,7 +35,7 @@ class BotHook
 
 	private function isTrusted()
 	{
-		if (in_array($this->chat_id, $this->trusted)) {
+		if (($this->onlytrusted) && (in_array($this->chat_id, $this->trusted))) {
 			return true;
 		}
 
@@ -46,7 +48,7 @@ class BotHook
 
 	private function command($command)
 	{
-		if (($trusted) && (!$this->isTrusted())) { $this->unauthorized(); }
+		if (!$this->isTrusted()) { $this->unauthorized(); return true; }
 
 		if (!in_array($command, array_keys($this->commands))) {
 			$answer = "Unknown command, try /help to see a list of commands";
