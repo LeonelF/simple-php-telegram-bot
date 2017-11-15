@@ -1,22 +1,13 @@
 <?php
-/**
- * BotHook
- * 
- * Class to interact with a telegram bot, and make it answer to some commands
- * 
- * Author: waterblue
- * Date: 2017/11/14
- */
 
-include_once(conf.php);
-
+include('conf.php');
 
 $content = file_get_contents("php://input");
 $update = json_decode($content, true);
 $chatID = $update["message"]["chat"]["id"];
 $message = $update["message"]["text"];
 
-$hook = new BotHook(BOT_TOKEN, ONLYTRUSTED, &$trusted, $chatID, $message);
+$hook = new BotHook($conf['bot_token'], $conf['onlytrusted'], $conf['trusted'], $chatID, $message);
 
 class BotHook
 {
@@ -30,7 +21,7 @@ class BotHook
 	
 	private $chat_id = '';
 
-	public function __construct($bottoken, $onlytrusted, &$trusted $chat_id, $message)
+	public function __construct($bottoken, $onlytrusted, $trusted, $chat_id, $message)
 	{
 		$this->api_url = 'https://api.telegram.org/bot' . $bottoken;
 		$this->chat_id = $chat_id;
@@ -55,7 +46,7 @@ class BotHook
 
 	private function command($command)
 	{
-		if ($trusted) && (!$this->isTrusted()) { $this->unauthorized(); }
+		if (($trusted) && (!$this->isTrusted())) { $this->unauthorized(); }
 
 		if (!in_array($command, array_keys($this->commands))) {
 			$answer = "Unknown command, try /help to see a list of commands";
