@@ -1,6 +1,6 @@
 <?php
 
-include('conf.php');
+include_once('conf.php');
 
 $content = file_get_contents("php://input");
 $update = json_decode($content, true);
