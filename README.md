@@ -2,7 +2,7 @@
 
 A simple class to interact with a telegram bot, and make it awnser to commands
 
-This class was created with colaboration of [ldrsousa](https:/ldrsousa.com)
+This class was created with colaboration of [ldrsousa](https://github.com/ldrsousa)
 
 **The host must support HTTPS in order for this to work.**
 
