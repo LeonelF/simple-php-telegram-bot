@@ -2,99 +2,82 @@
 
 include_once('conf.php');
 
+spl_autoload_register(function($class) {
+	include_once 'classes/' . $class . '.php';
+});
+
 $content = file_get_contents("php://input");
 $update = json_decode($content, true);
-$chatID = $update["message"]["chat"]["id"];
+$chat_id = $update["message"]["chat"]["id"];
 $message = $update["message"]["text"];
 
-$hook = new BotHook($conf['bot_token'], $conf['onlytrusted'], $conf['trusted'], $chatID, $message);
+// Available bot commands
+$commands = [
+	// General Commands
+	'help',
 
-class BotHook
-{
-	private $api_url = '';
+	// Server Commands
+	'server',
 
-	private $commands = array(
-		'/help'=>'help',
-		'/uptime'=>'uptime',
-		'/uname'=>'uname',
-	);
-	
-	private $chat_id = '';
+	//Alias for /server uptime
+	'uptime',
+];
 
-	public function __construct($bottoken, $onlytrusted, $trusted, $chat_id, $message)
-	{
-		$this->api_url = 'https://api.telegram.org/bot' . $bottoken;
-		$this->chat_id = $chat_id;
-		$this->onlytrusted = $onlytrusted;
-		$this->trusted = $trusted;
+$arguments = [
+	// Server
+	'server'=>[
+		'uptime',
+		'uname',
+	],
+];
 
-		if (strpos($message, '/') === 0) {
-			$this->command($message);
-		}
+// Aliases for commands
+$alias = [
+	'uptime'=>'server',
+];
+
+$args = explode(' ', trim($message));
+
+$command = ltrim(array_shift($args), '/');
+$method = '';
+if (isset($args[0]) && in_array($args[0], $arguments[$command])) {
+	$method = array_shift($args);
+}
+else { 
+	if (in_array($command, array_keys($alias))) {
+		$tmpcmd = $alias[$command];
+		$method = $command;
+		$command = $tmpcmd;
 	}
+}
 
-	private function isTrusted()
-	{
-		if (!$this->onlytrusted) { 
-			return true;
-		}
-		
-		if (in_array($this->chat_id, $this->trusted)) { 
-			return true; 
-		}
 
-		return false;
-	}
+switch ($command) {
+	case 'server':
+		$class = 'Server';
+		break;
+	default:
+		$class = 'Bot';
+}
 
-	private function log($message) {
-		error_log(date("Y-m-d H:i:s") . " - " . $message . "\n", 3, 'log.log');
-	}
+$hook = new $class($conf, $chat_id);
 
-	private function command($command)
-	{
-		if (!$this->isTrusted()) { $this->unauthorized(); return true; }
+if (!$hook->isTrusted()) {
+	$hook->unauthorized();
+	die();
+}
 
-		if (!in_array($command, array_keys($this->commands))) {
-			$answer = "Unknown command, try /help to see a list of commands";
-		} else {
-			$answer = $this->{$this->commands[$command]}();
-		}
+if (!in_array($command, $commands)) {
+	$hook->unknown();
+}
 
-		$this->send($answer);
-	}
-
-	private function send($message)
-	{
-		if (strlen($message) > 0) {
-			$send = $this->api_url . "/sendmessage?chat_id=" . $this->chat_id . "&text=" . urlencode($message);
-			file_get_contents($send);
-			return true;
-		}
-
-		return false;
-	}
-
-	private function unauthorized()
-	{
-		$message = "You are not authorized to use commands in this bot!";
-		return $this->send($message);
-	}
-
-	private function help()
-	{
-		$message = "/uptime - Retrieves the uptime of the server" . chr(10);
-		$message .= "/uname - Retrieves the server name, build and kernel";
-
-		return $message;
-	}
-
-	private function uptime()
-	{
-		return "Server uptime:". exec('uptime');
-	}
-
-	private function uname()
-	{
-		return exec('uname -a');
+else {
+	if (isset($arguments[$command]) && in_array($method, $arguments[$command])) {
+		$hook->{$method}($args);
+		die();
+	} else if (in_array($command, $commands)) {
+		$hook->{$command}($args);
+	} else {
+		$hook->unknown();
 	}
 }
