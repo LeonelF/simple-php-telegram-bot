@@ -45,9 +45,8 @@ if (isset($args[0]) && in_array($args[0], $arguments[$command])) {
 }
 else { 
 	if (in_array($command, array_keys($alias))) {
-		$tmpcmd = $alias[$command];
 		$method = $command;
-		$command = $tmpcmd;
+		$command = $alias[$command];
 	}
 }
 
