@@ -50,7 +50,8 @@ class Bot
 	{
 		$message = "/server uptime" . chr(10) . "  - Retrieves the uptime of the server" . chr(10) . chr(10);;
 		$message .= "/uptime" . chr(10) . " - Alias for the command \"/server uptime\"" . chr(10) . chr(10);
-		$message .= "/server uname" . chr(10) . "  - Retrieves the server name, build and kernel";
+		$message .= "/server uname" . chr(10) . "  - Retrieves the server name, build and kernel" . chr(10) . chr(10);
+		$message .= "/server who" . chr(10) . "  - Retrieves the current sessions on the server";
 
 		return $this->send($message);
 	}

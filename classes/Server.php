@@ -16,4 +16,9 @@ class Server extends Bot
 		return $this->send(exec('uname -a'));
 	}
 
+	public function who()
+	{
+		return $this->send("Current sessions on server:". chr(10) . exec('who'));
+	}
+
 }
