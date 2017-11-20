@@ -18,14 +18,18 @@ class Server extends Bot
 
 	public function who()
 	{
-		$serverwho = exec('who');
-		if ($serverwho != "") {
-			return $this->send("Current sessions on server:". chr(10) . $serverwho);
+		exec('who', $serverwho);
+
+		$output = "No active sessions on server at the moment.";
+
+		if (count($serverwho) > 0) {
+			$output = "Current sessions on server:" . chr(10);
+			foreach ($serverwho as $line) {
+				$output .= $line . chr(10);
+			}			
 		}
-		else {
-			return $this->send("No active sessions on server at the moment.");
-		}
-		
+
+		return $this->send($output);
 	}
 
 }
