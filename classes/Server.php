@@ -1,4 +1,5 @@
 <?php
+
 class Server extends Bot
 {
 	public function __construct($conf, $chat_id)

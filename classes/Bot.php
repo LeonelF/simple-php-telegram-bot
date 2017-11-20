@@ -38,22 +38,12 @@ class Bot
 		$text = trim($message);
 
 		if (strlen(trim($text)) > 0) {
-			$send = $this->api_url . "/sendmessage?chat_id=" . $this->chat_id . "&text=" . urlencode($text);
+			$send = $this->api_url . "/sendmessage?parse_mode=html&chat_id=" . $this->chat_id . "&text=" . urlencode($text);
 			file_get_contents($send);
 			return true;
 		}
 
 		return false;
-	}
-
-	public function help()
-	{
-		$message = "/server uptime" . chr(10) . "  - Retrieves the uptime of the server (alias /uptime)" . chr(10) . chr(10);
-		$message .= "/server uname" . chr(10) . "  - Retrieves the server name, build and kernel (alias /uname)" . chr(10) . chr(10);
-		$message .= "/server who" . chr(10) . "  - Retrieves the current sessions on the server (alias /who)" . chr(10) . chr(10);
-		$message .= "/server disk" . chr(10) . " - Retrieves the disk information like space used/available (alias /disk)";
-
-		return $this->send($message);
 	}
 
 	public function unauthorized()

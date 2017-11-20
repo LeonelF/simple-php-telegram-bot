@@ -41,6 +41,9 @@ $arguments = [
 		'who',
 		'disk',
 	],
+	'help'=>[
+		'server',
+	],
 ];
 
 // Aliases for commands
@@ -69,6 +72,9 @@ else {
 switch ($command) {
 	case 'server':
 		$class = 'Server';
+		break;
+	case 'help':
+		$class = 'Help';
 		break;
 	default:
 		$class = 'Bot';
