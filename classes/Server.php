@@ -18,7 +18,14 @@ class Server extends Bot
 
 	public function who()
 	{
-		return $this->send("Current sessions on server:". chr(10) . exec('who'));
+		$serverwho = exec('who');
+		if ($serverwho != "") {
+			return $this->send("Current sessions on server:". chr(10) . $serverwho);
+		}
+		else {
+			return $this->send("No active sessions on server at the moment.");
+		}
+		
 	}
 
 }
