@@ -25,7 +25,8 @@ class Server extends Bot
 		if (count($serverwho) > 0) {
 			$output = "Current sessions on server:" . chr(10);
 			foreach ($serverwho as $line) {
-				$output .= $line . chr(10);
+				$i++;
+				$output .= "#" . $i . " " . $line . chr(10);
 			}			
 		}
 
