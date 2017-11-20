@@ -38,10 +38,10 @@ class Server extends Bot
 		exec('df -hT /home', $serverspace);
 		if (count($serverspace) > 0) {
 			$parsed = array_values(array_filter(explode(" ",$serverspace[1])));
-			return $this->send("Filesystem: " . $parsed[1] . " | Size: " . $parsed[2] . " | Used: " . $parsed[3] . " | Available: " . $parsed[4] . " | Used %: " . $parsed[5]);
+			return $this->send("<b>Filesystem</b>: " . $parsed[1] . chr(10) . "<b>Size</b>: " . $parsed[2] . chr(10) . "<b>Used</b>: " . $parsed[3] . " (" . $parsed[5] .")" . chr(10) . "<b>Available</b>: " . $parsed[4]);
 		}
 		else {
-			return $this->send("Error, executing the requested command.");
+			return $this->send("Error executing the requested command.");
 		}
 	}
 
