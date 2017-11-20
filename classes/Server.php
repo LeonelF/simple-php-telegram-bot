@@ -32,4 +32,16 @@ class Server extends Bot
 		return $this->send($output);
 	}
 
+	public function disk()
+	{
+		exec('df -hT /home', $serverspace);
+		if (count($serverspace) > 0) {
+			$parsed = array_values(array_filter(explode(" ",$serverspace[1])));
+			return $this->send("Filesystem: " . $parsed[1] . " | Size: " . $parsed[2] . " | Used: " . $parsed[3] . " | Available: " . $parsed[4] . " | Used %: " . $parsed[5]);
+		}
+		else {
+			return $this->send("Error, executing the requested command.");
+		}
+	}
+
 }

@@ -28,6 +28,9 @@ $commands = [
 	// Alias for /server who
 	'who',
 
+	// Alias for /server disk
+	'disk',
+
 ];
 
 $arguments = [
@@ -36,6 +39,7 @@ $arguments = [
 		'uptime',
 		'uname',
 		'who',
+		'disk',
 	],
 ];
 
@@ -44,6 +48,7 @@ $alias = [
 	'uptime'=>'server',
 	'uname'=>'server',
 	'who'=>'server',
+	'disk'=>'server',
 ];
 
 $args = explode(' ', trim($message));

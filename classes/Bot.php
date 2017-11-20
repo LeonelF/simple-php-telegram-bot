@@ -50,7 +50,8 @@ class Bot
 	{
 		$message = "/server uptime" . chr(10) . "  - Retrieves the uptime of the server (alias /uptime)" . chr(10) . chr(10);
 		$message .= "/server uname" . chr(10) . "  - Retrieves the server name, build and kernel (alias /uname)" . chr(10) . chr(10);
-		$message .= "/server who" . chr(10) . "  - Retrieves the current sessions on the server (alias /who)";
+		$message .= "/server who" . chr(10) . "  - Retrieves the current sessions on the server (alias /who)" . chr(10) . chr(10);
+		$message .= "/server disk" . chr(10) . " - Retrieves the disk information like space used/available (alias /disk)";
 
 		return $this->send($message);
 	}
